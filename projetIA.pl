@@ -3,6 +3,11 @@ crime_type(vol).
 crime_type(escroquerie).
 crime_type(assassinat).
 
+% Eviter les erreurs dans le console
+:- discontiguous has_motive/2.
+:- discontiguous was_near_crime_scene/2.
+:- discontiguous has_fingerprint_on_weapon/2.
+
 % Faits
 suspect(john).
 suspect(mary).
@@ -25,7 +30,7 @@ has_bank_transaction(alice, escroquerie).
 has_bank_transaction(bruno, escroquerie).
 owns_fake_identity(sophie, escroquerie).
 
-% Règles
+% RÃ¨gles
 is_guilty(Suspect, vol) :-
     has_motive(Suspect, vol),
     was_near_crime_scene(Suspect, vol),
@@ -43,7 +48,7 @@ is_guilty(Suspect, escroquerie) :-
         has_motive(Suspect, escroquerie),
         has_bank_transaction(Suspect, escroquerie)
     ;   owns_fake_identity(Suspect, escroquerie)
-    ;   % Complicité détecté :
+    ;   % Complicitï¿½ dï¿½tectï¿½ :
         (has_bank_transaction(Suspect, escroquerie),
          suspect(Other),
          Other \= Suspect,
@@ -56,7 +61,7 @@ is_guilty(Suspect, escroquerie) :-
          has_bank_transaction(Other, escroquerie))
     ).
 
-%Entrée principale
+%EntrÃ©e principale
 main :-
     current_input(Input),
     read(Input, crime(Suspect, CrimeType)),
