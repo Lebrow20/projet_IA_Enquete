@@ -3,6 +3,11 @@ crime_type(vol).
 crime_type(escroquerie).
 crime_type(assassinat).
 
+% Eviter les erreurs dans le console
+:- discontiguous has_motive/2.
+:- discontiguous was_near_crime_scene/2.
+:- discontiguous has_fingerprint_on_weapon/2.
+
 % Faits
 suspect(john).
 suspect(mary).
@@ -39,20 +44,18 @@ is_guilty(Suspect, assassinat) :-
     ).
 
 is_guilty(Suspect, escroquerie) :-
-    (   
+    (
         has_motive(Suspect, escroquerie),
         has_bank_transaction(Suspect, escroquerie)
     ;   owns_fake_identity(Suspect, escroquerie)
-    ;   % Complicité détectée : si un autre suspect a les moyens complémentaires
-        (has_bank_transaction(Suspect, escroquerie), 
-         suspect(Other), 
+       % Complicité détectée:
+    ;   (has_bank_transaction(Suspect, escroquerie),
+         suspect(Other),
          Other \= Suspect,
-         has_motive(Other, escroquerie),
          owns_fake_identity(Other, escroquerie))
-    ;   (owns_fake_identity(Suspect, escroquerie), 
-         suspect(Other), 
+    ;   (owns_fake_identity(Suspect, escroquerie),
+         suspect(Other),
          Other \= Suspect,
-         has_motive(Other, escroquerie),
          has_bank_transaction(Other, escroquerie))
     ).
 

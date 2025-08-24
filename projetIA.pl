@@ -30,7 +30,7 @@ has_bank_transaction(alice, escroquerie).
 has_bank_transaction(bruno, escroquerie).
 owns_fake_identity(sophie, escroquerie).
 
-% RÃ¨gles
+% Règles
 is_guilty(Suspect, vol) :-
     has_motive(Suspect, vol),
     was_near_crime_scene(Suspect, vol),
@@ -48,20 +48,18 @@ is_guilty(Suspect, escroquerie) :-
         has_motive(Suspect, escroquerie),
         has_bank_transaction(Suspect, escroquerie)
     ;   owns_fake_identity(Suspect, escroquerie)
-    ;   % Complicitï¿½ dï¿½tectï¿½ :
-        (has_bank_transaction(Suspect, escroquerie),
+       % Complicité détectée:
+    ;   (has_bank_transaction(Suspect, escroquerie),
          suspect(Other),
          Other \= Suspect,
-         has_motive(Other, escroquerie),
          owns_fake_identity(Other, escroquerie))
     ;   (owns_fake_identity(Suspect, escroquerie),
          suspect(Other),
          Other \= Suspect,
-         has_motive(Other, escroquerie),
          has_bank_transaction(Other, escroquerie))
     ).
 
-%EntrÃ©e principale
+%Entrée principale
 main :-
     current_input(Input),
     read(Input, crime(Suspect, CrimeType)),

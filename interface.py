@@ -122,7 +122,7 @@ def get_evidence(suspect, crime):
                 has_bank_transaction(Other, {crime})
             """
             if list(prolog.query(query_complicity2)):
-                evidence.append(f"✓ Complicité détectée (fausse identité + complice avec transactions)")
+                evidence.append(f"✓ Complicité détectée (fausse identité + complice avec des transactions)")
     
     return evidence
 
@@ -147,7 +147,7 @@ def verifier():
         
         messagebox.showinfo("Résultat - COUPABLE", message)
     else:
-        message = f"{suspect.capitalize()} n'est PAS COUPABLE de {crime}\n\n"
+        message = f"{suspect.capitalize()} n'est pas COUPABLE de {crime}\n\n"
         message += "❌ Preuves manquantes :\n"
         
         missing_evidence = []
@@ -167,14 +167,14 @@ def verifier():
                 missing_evidence.append("• Présence sur la scène de crime")
             if not list(prolog.query(f"has_fingerprint_on_weapon({suspect}, {crime})")) and \
                not list(prolog.query(f"eyewitness_identification({suspect}, {crime})")):
-                missing_evidence.append("• Empreintes sur l'arme OU témoin oculaire")
+                missing_evidence.append("• Empreintes sur l'arme ou témoin oculaire")
         
         elif crime == "escroquerie":
             if not list(prolog.query(f"has_motive({suspect}, {crime})")):
                 missing_evidence.append("• Motif")
             if not list(prolog.query(f"has_bank_transaction({suspect}, {crime})")) and \
                not list(prolog.query(f"owns_fake_identity({suspect}, {crime})")):
-                missing_evidence.append("• Transactions bancaires OU fausse identité")
+                missing_evidence.append("• Transactions bancaires ou fausse identité")
         
         if missing_evidence:
             message += "\n".join(missing_evidence)
@@ -189,7 +189,7 @@ root.geometry("600x600")
 root.resizable(True, True)
 root.configure(bg="#f5f5f5")
 
-title_label = tk.Label(root, text="🕵️ Détective IA - Système d'enquête", 
+title_label = tk.Label(root, text="🕵️ Système d'enquête", 
                       font=("Arial", 18, "bold"), fg="#1B4332", bg="#f5f5f5")
 title_label.pack(pady=20)
 
