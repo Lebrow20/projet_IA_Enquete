@@ -3,14 +3,14 @@
 Application Python avec interface graphique pour analyser la culpabilité des suspects selon des règles Prolog.
 
 # Liste de collaborateurs de ce projet
-2384 : Malala
-2385 : Marc
-2390 : Fiorenantsoa
-2391 : Fanilo
-2390 : Fenosoa
-2411 : Espérant
-2434 : Taniah
-2571 : Dinafitiavana
+- 2384 : Malala
+- 2385 : Marc
+- 2390 : Fiorenantsoa
+- 2391 : Fanilo
+- 2390 : Fenosoa
+- 2411 : Espérant
+- 2434 : Taniah
+- 2571 : Dinafitiavana
 
 ## Installation
 
